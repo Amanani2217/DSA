@@ -13,9 +13,10 @@ int help(vector<int>nums,int n ,int dp[] ){
     return dp[n];
 }
     int rob(vector<int>& nums) {
-        int dp[nums.size()+1];
+        int n = nums.size();
+        int dp[n+1];
         for(int i = 0;i<=nums.size();i++)
            dp[i]=-1;
-        return help(nums,nums.size()-1,dp);
+        return help(nums,n-1,dp);
     }
 };
