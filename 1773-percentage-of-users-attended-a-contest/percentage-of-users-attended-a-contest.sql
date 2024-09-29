@@ -1,1 +1,1 @@
-select contest_id, round((count(distinct register.user_id)/count(distinct users.user_id)*100),2) percentage from users, register group by contest_id order by percentage desc, contest_id asc
+select contest_id, round((count(distinct r.user_id)/count(distinct u.user_id))*100,2) as percentage from register r left join users u on r.user_id =r.user_id group by contest_id order by percentage desc, r.contest_id asc
