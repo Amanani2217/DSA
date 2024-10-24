@@ -17,15 +17,12 @@ bool help(TreeNode*root,TreeNode*shoot){
     if(root->val!=shoot->val)return false;
     return help(root->left,shoot->left)&&help(root->right,shoot->right);
 }
-bool help1(TreeNode* root,TreeNode*shoot){
-    if(root==NULL)
+
+    bool isSubtree(TreeNode* root, TreeNode* shoot) {
+        if(root==NULL)
       return false ;
     if(root->val==shoot->val)
       if(help(root,shoot))return true;
-    return help1(root->left,shoot) || help1(root->right,shoot);
-    
-}
-    bool isSubtree(TreeNode* root, TreeNode* subRoot) {
-        return help1(root,subRoot);
+    return isSubtree(root->left,shoot) || isSubtree(root->right,shoot);
     }
 };
