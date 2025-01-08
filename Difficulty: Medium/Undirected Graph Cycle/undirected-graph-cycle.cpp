@@ -5,34 +5,38 @@ using namespace std;
 
 // } Driver Code Ends
 class Solution {
-    private:
-     bool dfs(vector<vector<int>>&adj,int start,int parent,int *visited){
-        // visited[start] = 1; 
-        visited[start] = 1;
-         for(auto it : adj[start]){
-             if(visited[it]==0){
-                 //visited[it] = 1;
-                 if(dfs(adj,it,start,visited)==true)
-                     return true;
-             }
-            else if(it!=parent)
-               return true;
-             
-         }
-         return false;
-     }
+    bool help(int * visited,vector<vector<int>>& adj,int root){
+        visited[root] = 1;
+        int V = adj.size();
+        queue<pair<int,int>>q;
+        pair<int,int>t(root,-1);
+        q.push(t);
+        while(!q.empty()){
+            t = q.front();
+            q.pop();
+            for(auto it:adj[t.first]){
+                if(visited[it]==0){
+                    visited[it]=1;
+                    q.push({it,t.first});
+                }
+                else if(it!=t.second){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
   public:
     // Function to detect cycle in an undirected graph.
     bool isCycle(vector<vector<int>>& adj) {
         // Code here
+        // using bfs by takin queue
         int V = adj.size();
         int visited[V] = {0};
-        
-        for(int i=0;i<V;i++){
+        for(int i =0 ;i<V;i++){
             if(visited[i]==0){
-                //visited[0]= 1;
-               if(dfs(adj,i,-1,visited)==true)
-                  return true; 
+                if(help(visited,adj,i)==true)
+                   return true;
             }
         }
         return false;
