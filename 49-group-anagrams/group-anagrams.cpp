@@ -1,27 +1,17 @@
 class Solution {
 public:
     vector<vector<string>> groupAnagrams(vector<string>& strs) {
-        vector<string> temp = strs;
-        vector<vector<string>>ans;
-        map<string,int>m;
-        for(int i = 0;i<temp.size();i++){
-            sort(temp[i].begin(),temp[i].end());
+        //pick eat then sort and map it with correspondin string in to vector
+        map<string,vector<string>>m;
+        for(auto c:strs){
+            string temp = c;
+            sort(temp.begin(),temp.end());
+            m[temp].push_back(c);
         }
-        for(int i=0;i<temp.size();i++)
-        {   
-            if(m.find(temp[i])!=m.end())
-               continue;
-            else
-               m[temp[i]]++;   
-            vector<string>t;
-            t.push_back(strs[i]);
-            for(int j = i+1;j<temp.size();j++){
-                if(temp[i]==temp[j]){
-                  t.push_back(strs[j]);
-                }
-            }
-            ans.push_back(t);
+        vector<vector<string>>res;
+        for(auto p:m){
+            res.push_back(p.second);
         }
-        return ans;
+        return res;
     }
 };
