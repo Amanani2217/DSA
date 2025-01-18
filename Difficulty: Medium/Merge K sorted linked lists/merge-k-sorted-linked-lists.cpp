@@ -44,33 +44,23 @@ class Solution {
   public:
     // Function to merge K sorted linked list.
     Node* mergeTwo(Node* p,Node*q){
-        Node* ans;
-        Node* t = NULL;
+        Node* ans  = new Node(0);
+        Node* t =ans;
         if(!p)
           return q;
         if(!q)
            return p;
-        if(p->data<q->data){
-          ans = p;
-          p=p->next;
-            t = ans;
-        }
-        else{
-            ans = q;
-            q=q->next;
-            t = ans;
-        }
+        
         while(p&&q){
             if(p->data<q->data){
                 t->next =p;
-                t=t->next;
                 p=p->next;
             }
             else{
                 t->next = q;
-                t=t->next;
                 q=q->next;
             }
+             t=t->next;
         }
         while(p){
             t->next= p;
@@ -82,10 +72,9 @@ class Solution {
                 t=t->next;
                 q=q->next;
             }
-            return ans;
+            return ans->next;
     }
     Node* mergeKLists(vector<Node*>& arr) {
-        // Your code here
         Node*  temp=arr[0];
         for(int i=1;i<arr.size();i++){
            temp =  mergeTwo(temp,arr[i]);
